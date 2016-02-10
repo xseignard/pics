@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Playground Pics</title>
+</head>
+<body>
+<div>
+	<button id="start">Take Picture</button><br/>
+	<button id="ledOn">Leds on</button><br/>
+	<button id="ledOff">Leds off</button>
+</div>
+<div>
+	<p id="result1"></p>
+	<p id="result2"></p>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/pics.js"></script>
+<script>
+	var expectedColor = '';
+	var computeResults = function(color1, color2) {
+		console.log(color1, color2);
+		// compare with the expected color
+		// we have a winner
+		// turn on led of winner
+		// if winner is 1.1
+		// pics.win('1.1')
+	}
+	var pics = new Pics(location.host, computeResults);
+
+	var start = document.querySelector('#start');
+	var ledOn = document.querySelector('#ledOn');
+	var ledOff = document.querySelector('#ledOff');
+
+	start.onclick = function() {
+		pics.start();
+	}
+	ledOn.onclick = function() {
+		pics.led(true);
+	}
+	ledOff.onclick = function() {
+		pics.led(false);
+	}
+</script>
+
+</body>
+</html>

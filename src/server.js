@@ -1,10 +1,13 @@
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var express = require('express'),
+	app = express(),
+	server = require('http').Server(app),
+	io = require('socket.io')(server);
 
 var port = process.env.PORT || 3000;
 
 server.listen(port);
+
+app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function (socket) { 
 	// dispatch take picture instructions to RPis
@@ -15,8 +18,12 @@ io.on('connection', function (socket) {
 	socket.on('led', function (data) {
 		socket.broadcast.emit('rpi-led', data);
 	});
+	// dispatch win instructions to RPis
+	socket.on('win', function (data) {
+		socket.broadcast.emit('rpi-win', data);
+	});
 	// dispatch result message to the tablet
-	socket.on('result', function (data) {
-		socket.broadcast.emit('tablet-result', data);
+	socket.on('rpi-result', function (data) {
+		socket.broadcast.emit('result', data);
 	});
 });

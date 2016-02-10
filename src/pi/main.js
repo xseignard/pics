@@ -22,16 +22,38 @@ if (fs.existsSync(tmpDir)) rimraf.sync(tmpDir);
 fs.mkdirSync(tmpDir);
 
 // connect to the backend
-var client = socketClient(conf.server);
-client.on('connect', function(){
-	logger.info('connected');
+var host = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000' : conf.server;
+
+var client = socketClient(host);
+client.on('connect', function() {
+	logger.info('Connected');
 });
 
-// send message to pusher
-var send = function(event, data) {
-	dataRef.push(Object.assign({}, {type: event}, data));
-};
-//send('take_picture', {my: 'test'});
+// handle take picture event
+client.on('rpi-take_picture', function() {
+	logger.info('Take picture');
+	takePicture(tmpDir, function(err, file) {
+		if (!err && file) {
+			color(file, function(err, color) {
+				if (!err && color) {
+					client.emit('rpi-result', { id: conf.deviceId, color: color });
+				}
+			});
+		}
+	});
+});
+
+// handle led event
+client.on('rpi-led', function(on){
+	logger.info('LED ' + on);
+});
+
+// handle win event
+client.on('rpi-win', function(id){
+	if (id === conf.deviceId) {
+		logger.info('Win!');
+	}
+});
 
 // shutdown hook
 var cleanup = function() {

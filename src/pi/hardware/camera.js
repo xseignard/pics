@@ -17,7 +17,7 @@ var takePicture = function(tmpDir, callback) {
 		});
 	}
 	else {
-		var dummyPic = path.join(__dirname, '..', '..', 'fixtures', 'dummyPic.jpg');
+		var dummyPic = path.join(__dirname, '..', '..', '..', 'fixtures', 'dummyPic.jpg');
 		console.log(dummyPic);
 		callback(null, dummyPic);
 	}
