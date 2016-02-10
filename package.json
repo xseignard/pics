@@ -1,0 +1,28 @@
+{
+  "name": "pics",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node src/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xseignard/pics.git"
+  },
+  "author": "Xavier Seignard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xseignard/pics/issues"
+  },
+  "homepage": "https://github.com/xseignard/pics#readme",
+  "dependencies": {
+    "dominant-color": "0.0.1",
+    "express": "^4.13.4",
+    "firebase": "^2.4.0",
+    "js-yaml": "^3.5.2",
+    "rimraf": "^2.5.1",
+    "socket.io": "^1.4.5",
+    "winston": "^2.1.1"
+  }
+}

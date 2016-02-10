@@ -1,0 +1,10 @@
+# Puhser app ID
+appId: '174974'
+# Pusher key
+key: 'a737aa345b698be6f05e'
+# Pusher secret
+secret: '586bb730ecb6a284fd64'
+# Pusher channel
+channel: 'test'
+# ID of the device
+deviceId: '1.1'
