@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Playground Pics</title>
+</head>
+<body>
+<div>
+<button id="takePicture">Take Picture</button>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	var socket = io.connect(location.host);
+	var takePicture = document.querySelector('#takePicture');
+
+	takePicture.onclick = function() {
+		socket.emit('take_picture');
+	}
+</script>
+
+</body>
+</html>
