@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/xseignard/pics#readme",
   "dependencies": {
+    "color-convert": "^1.0.0",
+    "delta-e": "0.0.7",
     "dominant-color": "0.0.1",
     "express": "^4.13.4",
     "firebase": "^2.4.0",

@@ -10,6 +10,10 @@ server.listen(port);
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function (socket) { 
+	// dispatch start picture instructions to RPis
+	socket.on('start', function (data) {
+		socket.broadcast.emit('rpi-start', data);
+	});
 	// dispatch take picture instructions to RPis
 	socket.on('take_picture', function (data) {
 		socket.broadcast.emit('rpi-take_picture');

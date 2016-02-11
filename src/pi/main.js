@@ -6,7 +6,9 @@ var fs = require('fs'),
 	conf = require('./conf/conf.js'),
 	winston = require('winston')
 	color = require('dominant-color'),
-	takePicture = require('./hardware/camera');
+	takePicture = require('./hardware/camera'),
+	convert = require('color-convert'),
+	DeltaE = require('delta-e');
 
 // logger
 var logger = new winston.Logger({
@@ -29,6 +31,18 @@ client.on('connect', function() {
 	logger.info('Connected');
 });
 
+var expectedLabColor;
+// handle take picture event
+client.on('rpi-start', function(expectedColor) {
+	logger.info('Start');
+	var converted = convert.hex.lab(expectedColor);
+	expectedLabColor = {
+		L: converted[0],
+		A: converted[1],
+		B: converted[2]
+	};
+});
+
 // handle take picture event
 client.on('rpi-take_picture', function() {
 	logger.info('Take picture');
@@ -36,7 +50,14 @@ client.on('rpi-take_picture', function() {
 		if (!err && file) {
 			color(file, function(err, color) {
 				if (!err && color) {
-					client.emit('rpi-result', { id: conf.deviceId, color: color });
+					var labColor = convert.hex.lab(color);
+					var result = {
+						L: labColor[0],
+						A: labColor[1],
+						B: labColor[2]
+					};
+					var delta = DeltaE.getDeltaE00(expectedLabColor, result);
+					client.emit('rpi-result', { id: conf.deviceId, delta: delta });
 				}
 			});
 		}

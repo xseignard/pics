@@ -10,30 +10,38 @@
 	<button id="ledOff">Leds off</button>
 </div>
 <div>
+	<p id="expectedColor">ffffff</p>
 	<p id="result1"></p>
 	<p id="result2"></p>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="https://rawgit.com/zschuessler/DeltaE/master/dist/deltae.global.min.js"></script>
 <script src="js/pics.js"></script>
 <script>
-	var expectedColor = '';
-	var computeResults = function(color1, color2) {
-		console.log(color1, color2);
-		// compare with the expected color
-		// we have a winner
+	var expectedColor = document.querySelector('#expectedColor').innerText;
+	
+	var result1_p = document.querySelector('#result1');
+	var result2_p = document.querySelector('#result2');
+	
+	var handleWinner = function(result1, result2) {
+		console.log(result1.delta, result2.delta);
+		result1_p.innerText = result1.delta;
+		result2_p.innerText = result2.delta;
+
+		// the lowest delta is the winner
 		// turn on led of winner
 		// if winner is 1.1
 		// pics.win('1.1')
 	}
-	var pics = new Pics(location.host, computeResults);
+	var pics = new Pics(location.host, handleWinner);
 
 	var start = document.querySelector('#start');
 	var ledOn = document.querySelector('#ledOn');
 	var ledOff = document.querySelector('#ledOff');
 
 	start.onclick = function() {
-		pics.start();
+		pics.start(expectedColor);
 	}
 	ledOn.onclick = function() {
 		pics.led(true);
