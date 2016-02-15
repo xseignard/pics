@@ -26,7 +26,7 @@ Edit `/boot/wpa_supplicant.conf` and set the ssid and the passphrase.
 
 ### Calibration
 
-Way too much combinations of options (more than 9 millions), it would be better to calibrate it manually.
+Way too much combinations of options (almost 5 millions), it would be better to calibrate it manually.
 
 ~~Run `npm run calibration` and check taken pictures in `/home/pi/calibration`.~~
 
