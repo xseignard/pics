@@ -24,30 +24,46 @@
 	var result1_p = document.querySelector('#result1');
 	var result2_p = document.querySelector('#result2');
 
+	// will handle results
 	var handleWinner = function(result1, result2) {
 		console.log(result1.delta, result2.delta);
 		result1_p.innerText = result1.delta;
 		result2_p.innerText = result2.delta;
 
 		// the lowest delta is the winner
-		// turn on led of winner
-		// if winner is 1.1
-		// pics.win('1.1')
+		if (result1.delta < result2.delta) {
+			pics.win(result1.id);
+			pics.lose(result2.id);
+		}
+		else {
+			pics.win(result2.id);
+			pics.lose(result1.id);
+		}
 	}
+	// connect the app to the server
 	var pics = new Pics(location.host, handleWinner);
 
 	var start = document.querySelector('#start');
 	var ledOn = document.querySelector('#ledOn');
 	var ledOff = document.querySelector('#ledOff');
 
+	// duration of the match in ms
+	var gameDuration = 5000;
+
+	// will start a new game
 	start.onclick = function() {
-		pics.start(expectedColor);
+		pics.start(expectedColor, gameDuration);
 	}
+
+
+	// will turn on leds on object 1.1
 	ledOn.onclick = function() {
-		pics.led(true);
+		pics.led('1.1', true);
 	}
+
+	// will turn off leds on object 1.1
 	ledOff.onclick = function() {
-		pics.led(false);
+		pics.led('1.1', false);
 	}
 </script>
 

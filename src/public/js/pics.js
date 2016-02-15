@@ -18,10 +18,14 @@
 		});
 	};
 
-	Pics.prototype.start = function(hexColor) {
+	Pics.prototype.start = function(hexColor, duration) {
 		if (this.result1) delete this.result1;
 		if (this.result2) delete this.result2;
 		this.socket.emit('start', hexColor);
+		var _self = this;
+		setTimeout(function() {
+			_self.end();
+		})
 	};
 
 	Pics.prototype.end = function() {

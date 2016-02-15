@@ -69,7 +69,7 @@ var expectedColor = document.querySelector('#expectedColor').innerText;
 var result1_p = document.querySelector('#result1');
 var result2_p = document.querySelector('#result2');
 
-// will handle results from
+// will handle results
 var handleWinner = function(result1, result2) {
 	console.log(result1.delta, result2.delta);
 	result1_p.innerText = result1.delta;
@@ -85,21 +85,21 @@ var handleWinner = function(result1, result2) {
 		pics.lose(result1.id);
 	}
 }
+// connect the app to the server
 var pics = new Pics(location.host, handleWinner);
 
 var start = document.querySelector('#start');
 var ledOn = document.querySelector('#ledOn');
 var ledOff = document.querySelector('#ledOff');
 
+// duration of the match in ms
+var gameDuration = 5000;
+
 // will start a new game
 start.onclick = function() {
-	pics.start(expectedColor);
+	pics.start(expectedColor, gameDuration);
 }
 
-// will end the game after 1 munites (60000 ms) and notify objects to take pictures and they will return the delta between the dominant color and the expected one
-setTimeout(function() {
-	pics.end();
-}, 60000);
 
 // will turn on leds on object 1.1
 ledOn.onclick = function() {
