@@ -25,7 +25,7 @@
 		var _self = this;
 		setTimeout(function() {
 			_self.end();
-		})
+		}, duration);
 	};
 
 	Pics.prototype.end = function() {
