@@ -22,10 +22,6 @@ io.on('connection', function (socket) {
 	socket.on('led', function (data) {
 		socket.broadcast.emit('rpi-led', data);
 	});
-	// dispatch win instructions to RPis
-	socket.on('win', function (data) {
-		socket.broadcast.emit('rpi-win', data);
-	});
 	// dispatch result message to the tablet
 	socket.on('rpi-result', function (data) {
 		socket.broadcast.emit('result', data);

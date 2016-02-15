@@ -65,14 +65,10 @@ client.on('rpi-take_picture', function() {
 });
 
 // handle led event
-client.on('rpi-led', function(on){
-	logger.info('LED ' + on);
-});
-
-// handle win event
-client.on('rpi-win', function(id){
-	if (id === conf.deviceId) {
-		logger.info('Win!');
+client.on('rpi-led', function(data){
+	if (data.deviceId === conf.deviceId) {
+		logger.info('LED ' + data.on);
+		// TODO turn on/off leds
 	}
 });
 

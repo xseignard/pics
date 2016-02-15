@@ -28,12 +28,16 @@
 		this.socket.emit('take_picture');
 	};
 
-	Pics.prototype.win = function(objectId) {
-		this.socket.emit('win', id);
+	Pics.prototype.win = function(deviceId) {
+		this.socket.emit('led', { deviceId: deviceId, on: true });
 	};
 
-	Pics.prototype.led = function(objectId, on) {
-		this.socket.emit('led', { objectId: objectId, on: on });
+	Pics.prototype.lose = function(deviceId) {
+		this.socket.emit('led', { deviceId: deviceId, on: false });
+	};
+
+	Pics.prototype.led = function(deviceId, on) {
+		this.socket.emit('led', { deviceId: deviceId, on: on });
 	};
 
 	window.Pics = Pics;
