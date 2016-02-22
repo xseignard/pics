@@ -61,6 +61,14 @@ Then include the client lib, by copying it locally or by linking the online vers
 <script src="http://playground-pics.herokuapp.com/js/pics.js"></script>
 ```
 
+Or use the "faked" client lib until objects are operational.
+
+```html
+<script src="js/pics.mock.js"></script>
+<!-- or -->
+<script src="http://playground-pics.herokuapp.com/js/pics.mock.js"></script>
+```
+
 Then refer to this code to check how to use it:
 
 ```js
