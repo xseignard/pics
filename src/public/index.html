@@ -17,7 +17,7 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://rawgit.com/zschuessler/DeltaE/master/dist/deltae.global.min.js"></script>
-<script src="js/pics.js"></script>
+<script src="js/pics.mock.js"></script>
 <script>
 	var expectedColor = document.querySelector('#expectedColor').innerText;
 
@@ -26,16 +26,17 @@
 
 	// will handle results
 	var handleWinner = function(result1, result2) {
-		console.log(result1.delta, result2.delta);
 		result1_p.innerText = result1.delta;
 		result2_p.innerText = result2.delta;
 
 		// the lowest delta is the winner
 		if (result1.delta < result2.delta) {
+			console.log('winner is ' + result1.id);
 			pics.win(result1.id);
 			pics.lose(result2.id);
 		}
 		else {
+			console.log('winner is ' + result2.id);
 			pics.win(result2.id);
 			pics.lose(result1.id);
 		}
