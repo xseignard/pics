@@ -1,9 +1,9 @@
-var yaml = require('js-yaml'),
-	fs = require('fs'),
-	path = require('path');
+const yaml = require('js-yaml');
+const fs = require('fs');
+const path = require('path');
 
 // load configuration file
-var confPath = path.join(__dirname, 'conf.yml');
-var conf = yaml.safeLoad(fs.readFileSync(confPath, 'utf8'));
+const confPath = path.join(__dirname, 'conf.yml');
+const conf = yaml.safeLoad(fs.readFileSync(confPath, 'utf8'));
 
 module.exports = conf;

@@ -1,41 +1,40 @@
-var fs = require('fs'),
-	os = require('os'),
-	path = require('path'),
-	rimraf = require('rimraf'),
-	socketClient = require('socket.io-client'),
-	conf = require('./conf/conf.js'),
-	winston = require('winston')
-	color = require('dominant-color'),
-	takePicture = require('./hardware/camera'),
-	convert = require('color-convert'),
-	DeltaE = require('delta-e');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const rimraf = require('rimraf');
+const socketClient = require('socket.io-client');
+const conf = require('./conf/conf.js');
+const winston = require('winston')
+const convert = require('color-convert');
+const takePicture = require('./hardware/camera');
+const analyze = require('./color/analyze')
 
 // logger
-var logger = new winston.Logger({
+const logger = new winston.Logger({
 	transports: [
 		new winston.transports.Console()
 	]
 });
 // tmp dir
-var tmpDir = path.join(os.tmpdir(), 'pics');
+const tmpDir = path.join(os.tmpdir(), 'pics');
 // cleanup tmp dir
 if (fs.existsSync(tmpDir)) rimraf.sync(tmpDir);
 // recreate dir (cleaned!)
 fs.mkdirSync(tmpDir);
 
 // connect to the backend
-var host = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000' : conf.server;
+const host = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000' : conf.server;
 
-var client = socketClient(host);
-client.on('connect', function() {
+const client = socketClient(host);
+client.on('connect', () => {
 	logger.info('Connected');
 });
 
 var expectedLabColor;
 // handle take picture event
-client.on('rpi-start', function(expectedColor) {
+client.on('rpi-start', (expectedColor) => {
 	logger.info('Start');
-	var converted = convert.hex.lab(expectedColor);
+	const converted = convert.hex.lab(expectedColor);
 	expectedLabColor = {
 		L: converted[0],
 		A: converted[1],
@@ -44,20 +43,13 @@ client.on('rpi-start', function(expectedColor) {
 });
 
 // handle take picture event
-client.on('rpi-take_picture', function() {
+client.on('rpi-take_picture', () => {
 	logger.info('Take picture');
-	takePicture(tmpDir, function(err, file) {
+	takePicture(tmpDir, (err, file) => {
 		if (!err && file) {
-			color(file, function(err, color) {
-				if (!err && color) {
-					var labColor = convert.hex.lab(color);
-					var result = {
-						L: labColor[0],
-						A: labColor[1],
-						B: labColor[2]
-					};
-					var delta = DeltaE.getDeltaE00(expectedLabColor, result);
-					client.emit('rpi-result', { id: conf.deviceId, delta: delta });
+			analyze(file, expectedLabColor, (err, result) => {
+				if (!err && result) {
+					client.emit('rpi-result', Object.assign({ id: conf.deviceId }, result ));
 				}
 			});
 		}
@@ -65,7 +57,7 @@ client.on('rpi-take_picture', function() {
 });
 
 // handle led event
-client.on('rpi-led', function(data){
+client.on('rpi-led', (data) => {
 	if (data.deviceId === conf.deviceId) {
 		logger.info('LED ' + data.on);
 		// TODO turn on/off leds
@@ -73,7 +65,7 @@ client.on('rpi-led', function(data){
 });
 
 // shutdown hook
-var cleanup = function() {
+const cleanup = () => {
 	logger.info('Closing app...');
 	// cleanup tmp dir
 	if (fs.existsSync(tmpDir)) rimraf.sync(tmpDir);

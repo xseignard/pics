@@ -4,6 +4,7 @@
 		this.handleWinner = handleWinner;
 		var _self = this;
 		this.mockResult = function(result) {
+			console.log(result);
 			if (result.id === '1.1' && !_self.result1) {
 				_self.result1 = result;
 			}
@@ -30,13 +31,25 @@
 		var getRandomInt = function(min, max) {
 			return Math.floor(Math.random() * (max - min)) + min;
 		};
+
+		var getRandomPalette = function() {
+			var palette = [];
+			for (var i = 0; i < 5; i++) {
+				palette.push([
+					getRandomInt(0, 255),
+					getRandomInt(0, 255),
+					getRandomInt(0, 255)
+				]);
+			}
+			return palette;
+		};
 		var duration1 = getRandomInt(3000, 6000);
 		var duration2 = getRandomInt(3000, 6000);
 		setTimeout(function() {
-			_self.mockResult({ id: '1.1', delta: Math.random() })
+			_self.mockResult({ id: '1.1', delta: getRandomInt(0, 100), palette: getRandomPalette() })
 		}, duration1);
 		setTimeout(function() {
-			_self.mockResult({ id: '1.2', delta: Math.random() })
+			_self.mockResult({ id: '1.2', delta: getRandomInt(0, 100), palette: getRandomPalette() })
 		}, duration2);
 	};
 

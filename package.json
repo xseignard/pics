@@ -22,6 +22,8 @@
     "delta-e": "0.0.7",
     "dominant-color": "0.0.1",
     "express": "^4.13.4",
+    "get-pixels": "^3.3.0",
+    "get-rgba-palette": "^2.0.0",
     "js-yaml": "^3.5.2",
     "lodash": "^4.3.0",
     "rimraf": "^2.5.1",

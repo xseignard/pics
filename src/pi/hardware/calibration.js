@@ -1,48 +1,48 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
-var product = function() {
-	return _.reduce(arguments, function(a, b) {
-		return _.flatten(_.map(a, function(x) {
-			return _.map(b, function(y) {
+const product = () => {
+	return _.reduce(arguments, (a, b) => {
+		return _.flatten(_.map(a, (x) => {
+			return _.map(b, (y) => {
 				return x.concat([y]);
 			});
 		}), true);
 	}, [ [] ]);
 };
 
-var quality = [
+const quality = [
 	'-q 0',
 	'-q 50',
 	'-q 100'
 ];
 
-var sharpness = [
+const sharpness = [
 	'-sh -100',
 	'-sh -50',
 	'-sh 0',
 	'-sh 50',
 	'-sh 100'
 ];
-var contrast = [
+const contrast = [
 	'-co -100',
 	'-co -50',
 	'-co 0',
 	'-co 50',
 	'-co 100'
 ];
-var brigtness = [
+const brigtness = [
 	'-br 0',
 	'-br 50',
 	'-br 100'
 ];
-var saturation = [
+const saturation = [
 	'-sa -100',
 	'-sa -50',
 	'-sa 0',
 	'-sa 50',
 	'-sa 100'
 ];
-var iso = [
+const iso = [
 	'-ISO 0',
 	'-ISO 100',
 	'-ISO 200',
@@ -53,7 +53,7 @@ var iso = [
 	'-ISO 700',
 	'-ISO 800'
 ];
-var exposure = [
+const exposure = [
 	'-ex auto',
 	'-ex night',
 	'-ex nightpreview',
@@ -67,7 +67,7 @@ var exposure = [
 	'-ex antishake',
 	'-ex fireworks'
 ];
-var awb = [
+const awb = [
 	'-awb off',
 	'-awb auto',
 	'-awb sun',
@@ -79,7 +79,7 @@ var awb = [
 	'-awb flash',
 	'-awb horizon'
 ];
-var metering = [
+const metering = [
 	'-mm average',
 	'-mm spot',
 	'-mm backlit',
@@ -88,6 +88,6 @@ var metering = [
 
 
 
-var allOpts = product(contrast, brigtness, iso, exposure, awb, metering);
+const allOpts = product(contrast, brigtness, iso, exposure, awb, metering);
 
 console.log(allOpts);
