@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const getPixels = require('get-pixels');
 const getRgbaPalette = require('get-rgba-palette');
@@ -32,7 +34,7 @@ const analyze = (fileName, expectedLabColor, callback) => {
 	getPalette(fileName, (err, palette) => {
 		if (err) return callback(err, null);
 		const labColor = convert.hex.lab(palette[0]);
-		const delta = DeltaE.getDeltaE00(
+		const delta = DeltaE.getDeltaE94(
 			expectedLabColor,
 			{ L: labColor[0], A: labColor[1], B: labColor[2] }
 		);
@@ -41,4 +43,3 @@ const analyze = (fileName, expectedLabColor, callback) => {
 };
 
 module.exports = analyze;
-

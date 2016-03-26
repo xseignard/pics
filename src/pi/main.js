@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -30,7 +32,7 @@ client.on('connect', () => {
 	logger.info('Connected');
 });
 
-var expectedLabColor;
+let expectedLabColor;
 // handle take picture event
 client.on('rpi-start', (expectedColor) => {
 	logger.info('Start');
