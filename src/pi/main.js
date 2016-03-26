@@ -37,6 +37,7 @@ let expectedLabColor;
 client.on('rpi-start', (expectedColor) => {
 	logger.info('Start');
 	const converted = convert.hex.lab(expectedColor);
+	console.log(converted);
 	expectedLabColor = {
 		L: converted[0],
 		A: converted[1],
