@@ -1,4 +1,4 @@
 # server adress
 server: 'http://playground-pics.herokuapp.com/'
 # ID of the device
-deviceId: '1.1'
+deviceId: '1.2'

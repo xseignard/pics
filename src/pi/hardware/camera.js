@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const isRPi = () => {
 	const procInfo = fs.readFileSync('/proc/cpuinfo', 'utf8');
-	return procInfo.indexOf('BCM2708') > -1;
+	return procInfo.indexOf('BCM270') > -1;
 };
 
 const takePicture = (tmpDir, callback) => {
@@ -14,7 +14,7 @@ const takePicture = (tmpDir, callback) => {
 		const now = new Date();
 		const fileName = path.join(tmpDir, now.getTime() + '.jpg');
 
-		exec('raspistill -o ' + fileName, (err, stdin, stdout) => {
+		exec('raspistill -w 1296 -h 972 -o ' + fileName, (err, stdin, stdout) => {
 			callback(err, fileName);
 		});
 	}

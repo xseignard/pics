@@ -47,10 +47,15 @@ client.on('rpi-start', (expectedColor) => {
 // handle take picture event
 client.on('rpi-take_picture', () => {
 	logger.info('Take picture');
+	logger.info(new Date());
 	takePicture(tmpDir, (err, file) => {
 		if (!err && file) {
+			logger.info('Analyze');
+			logger.info(new Date());
 			analyze(file, expectedLabColor, (err, result) => {
 				if (!err && result) {
+					logger.info('Result');
+					logger.info(new Date());
 					client.emit('rpi-result', Object.assign({ id: conf.deviceId }, result ));
 				}
 			});
