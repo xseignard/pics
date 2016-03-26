@@ -31,6 +31,7 @@ const getPalette = (fileName, callback) => {
 };
 
 const analyze = (fileName, expectedLabColor, callback) => {
+	console.log(expectedLabColor);
 	getPalette(fileName, (err, palette) => {
 		if (err) return callback(err, null);
 		const labColor = convert.hex.lab(palette[0]);
