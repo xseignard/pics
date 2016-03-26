@@ -38,6 +38,7 @@ const analyze = (fileName, expectedLabColor, callback) => {
 			expectedLabColor,
 			{ L: labColor[0], A: labColor[1], B: labColor[2] }
 		);
+		console.log(delta);
 		callback(null, { palette, delta });
 	});
 };
