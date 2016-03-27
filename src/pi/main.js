@@ -30,6 +30,7 @@ const host = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000' 
 const client = socketClient(host);
 client.on('connect', () => {
 	logger.info('Connected');
+	client.emit('presence', { id: conf.deviceId });
 });
 
 let expectedLabColor;

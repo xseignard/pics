@@ -23,6 +23,9 @@
 	var result1_p = document.querySelector('#result1');
 	var result2_p = document.querySelector('#result2');
 
+	// game ID, can be 1 or 2
+	var gameId = 1;
+
 	// will handle results
 	var handleWinner = function(result1, result2) {
 		result1_p.innerText = result1.delta;
@@ -39,9 +42,14 @@
 			pics.win(result2.id);
 			pics.lose(result1.id);
 		}
-	}
+	};
+
+	// will handle if objects are connected
+	var handleObjects = function(data) {
+		if (data.game === gameId && data.ready) console.log('Game is ready');
+	};
 	// connect the app to the server
-	var pics = new Pics(location.host, handleWinner);
+	var pics = new Pics(location.host, gameId, handleWinner, handleObjects);
 
 	var start = document.querySelector('#start');
 	var ledOn = document.querySelector('#ledOn');
