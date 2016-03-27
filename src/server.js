@@ -8,8 +8,8 @@ const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
 
 const connectedObjects = {
-	game1: 0,
-	game2: 0
+	game1: [],
+	game2: []
 };
 
 server.listen(port);
@@ -19,19 +19,26 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', (socket) => {
 	// check if objects are connected
 	socket.on('presence', (data) => {
-		if (data.id.match(/1\.1|1\.2/)) connectedObjects.game1 = connectedObjects.game1 + 1;
-		else if (data.id.match(/2\.1|2\.2/)) connectedObjects.game2 = connectedObjects.game2 + 1;
+		if (data.id.match(/1\.1|1\.2/)) connectedObjects.game1.push(socket);
+		else if (data.id.match(/2\.1|2\.2/)) connectedObjects.game2.push(socket);
 		console.log(connectedObjects.game1);
+	});
+	socket.on('disconnect', () => {
+		console.log('Got disconnect!');
+		const game1Index = connectedObjects.game1.indexOf(socket);
+		const game2Index = connectedObjects.game2.indexOf(socket);
+		if (game1Index > -1) connectedObjects.game1.splice(game1Index, 1);
+		if (game2Index > -1) connectedObjects.game2.splice(game1Index, 1);
 	});
 	// check if objects are connected
 	socket.on('check-presence', (data) => {
 		console.log('presence');
 		console.log(connectedObjects.game1);
-		if (data.game === 1 && connectedObjects.game1 >= 2) {
+		if (data.game === 1 && connectedObjects.game1.length === 2) {
 			console.log('ready');
 			socket.emit('game-ready', { game: 1, ready: true });
 		}
-		else if (data.game === 2 && connectedObjects.game2 >= 2) {
+		else if (data.game === 2 && connectedObjects.game2.length === 2) {
 			socket.emit('game-ready', { game: 2, ready: true });
 		}
 	});
