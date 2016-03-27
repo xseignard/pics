@@ -31,15 +31,13 @@ const getPalette = (fileName, callback) => {
 };
 
 const analyze = (fileName, expectedLabColor, callback) => {
-	console.log(expectedLabColor);
 	getPalette(fileName, (err, palette) => {
 		if (err) return callback(err, null);
-		const labColor = convert.hex.lab(palette[0]);
+		const labColor = convert.rgb.lab(palette[0]);
 		const delta = DeltaE.getDeltaE94(
 			expectedLabColor,
 			{ L: labColor[0], A: labColor[1], B: labColor[2] }
 		);
-		console.log(delta);
 		callback(null, { palette, delta });
 	});
 };
