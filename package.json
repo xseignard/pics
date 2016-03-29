@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/xseignard/pics#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "color-convert": "^1.0.0",
     "delta-e": "0.0.7",
     "dominant-color": "0.0.1",
@@ -27,6 +28,7 @@
     "js-yaml": "^3.5.2",
     "lodash": "^4.3.0",
     "rimraf": "^2.5.1",
+    "serialport": "^2.0.6",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5",
     "winston": "^2.1.1"
