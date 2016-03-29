@@ -25,9 +25,11 @@ void loop() {
 		char recieved = Serial.read();
 		if (recieved == '#') {
 			handleMessage();
+			digitalWrite(13, LOW);
 			fromApp = "";
 		}
 		else {
+			digitalWrite(13, HIGH);
 			fromApp += recieved;
 		}
 	}

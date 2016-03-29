@@ -12,6 +12,7 @@ class Leds extends EventEmitter {
 		});
 		this.sp.once('open', () => {
 			console.log('ready');
+			this.sp.write('#');
 			this.emit('ready');
 		});
 	}
