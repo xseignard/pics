@@ -33,12 +33,17 @@ const getPalette = (fileName, callback) => {
 const analyze = (fileName, expectedLabColor, callback) => {
 	getPalette(fileName, (err, palette) => {
 		if (err) return callback(err, null);
-		const labColor = convert.rgb.lab(palette[0]);
-		const delta = DeltaE.getDeltaE94(
-			expectedLabColor,
-			{ L: labColor[0], A: labColor[1], B: labColor[2] }
-		);
-		callback(null, { palette, delta });
+		let minDelta = null;
+		palette.forEach((color) => {
+			const labColor = convert.rgb.lab(color);
+			const delta = DeltaE.getDeltaE00(
+				expectedLabColor,
+				{ L: labColor[0], A: labColor[1], B: labColor[2] }
+			);
+			if (!minDelta) minDelta = delta;
+			else if (delta < minDelta) minDelta = delta;
+		});
+		callback(null, { palette, delta: minDelta });
 	});
 };
 

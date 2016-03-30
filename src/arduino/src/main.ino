@@ -15,7 +15,7 @@ String state = "off";
 void setup() {
 	Serial.begin(9600);
 	FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
-	fill_solid(leds, NUM_LEDS, CRGB::White);
+	fill_solid(leds, NUM_LEDS, CRGB(255, 200, 150));
 	FastLED.show();
 	delay(2000);
 	fill_solid(leds, NUM_LEDS, CRGB::Black);
@@ -57,7 +57,7 @@ void handleMessage() {
 
 void handleState() {
 	if (state == "on") {
-		fill_solid(leds, NUM_LEDS, CRGB::White);
+		fill_solid(leds, NUM_LEDS, CRGB(255, 200, 150));
 	}
 	else if (state == "off") {
 		fill_solid(leds, NUM_LEDS, CRGB::Black);

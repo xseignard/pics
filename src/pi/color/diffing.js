@@ -9,12 +9,12 @@ const img = path.join(__dirname, '../../../fixtures/overlay_figure.gif');
 const background = path.join(__dirname, '../../../fixtures/overlay_bgnd.gif');
 const tmpDir = path.join(__dirname, '../../../fixtures/');
 
-diff(img, background, tmpDir, (err, fileName) => {
+diffing(img, background, tmpDir, (err, fileName) => {
 	console.log(fileName);
 });
 */
 
-const diff = (img, background, tmpDir, cb) => {
+const diffing = (img, background, tmpDir, cb) => {
 	const now = new Date();
 	const fileName = path.join(tmpDir, now.getTime() + '.png');
 	gm(img)
@@ -25,4 +25,4 @@ const diff = (img, background, tmpDir, cb) => {
 		});
 };
 
-module.exports = diff;
+module.exports = diffing;

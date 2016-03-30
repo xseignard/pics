@@ -26,7 +26,7 @@ if (fs.existsSync(tmpDir)) rimraf.sync(tmpDir);
 fs.mkdirSync(tmpDir);
 
 // initiate connection to leds
-const leds = new Leds('/dev/ttyUSB0');
+const leds = new Leds('/dev/ttyAMA0');
 leds.on('ready', () => {
 	// blink to notify it is ok
 	setTimeout(() => {
