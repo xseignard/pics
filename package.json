@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "server": "node src/server",
-    "pi": "node src/pi/main"
+    "pre:pi": "git pull origin master",
+    "pi": "npm run pre:pi && node src/pi/main"
   },
   "repository": {
     "type": "git",
