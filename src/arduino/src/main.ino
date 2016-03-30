@@ -1,6 +1,6 @@
 #include <FastLED.h>
 
-#define NUM_LEDS 15
+#define NUM_LEDS 12
 #define DATA_PIN 6
 
 // strip definition
@@ -15,6 +15,9 @@ String state = "off";
 void setup() {
 	Serial.begin(9600);
 	FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+	fill_solid(leds, NUM_LEDS, CRGB::White);
+	FastLED.show();
+	delay(2000);
 	fill_solid(leds, NUM_LEDS, CRGB::Black);
 	FastLED.show();
 }

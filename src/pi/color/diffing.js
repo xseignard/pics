@@ -25,14 +25,4 @@ const diff = (img, background, tmpDir, cb) => {
 		});
 };
 
-
-// usage example
-const img = path.join(__dirname, '../../../fixtures/overlay_figure.gif');
-const background = path.join(__dirname, '../../../fixtures/overlay_bgnd.gif');
-const tmpDir = path.join(__dirname, '../../../fixtures/');
-
-diff(img, background, tmpDir, (err, fileName) => {
-	console.log(fileName);
-});
-
 module.exports = diff;
