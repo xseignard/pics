@@ -3,8 +3,14 @@
 Please install node.js on the RPi.
 
 ```sh
-wget http://node-arm.herokuapp.com/node_latest_armhf.deb 
+wget http://node-arm.herokuapp.com/node_latest_armhf.deb
 sudo dpkg -i node_latest_armhf.deb
+```
+
+Install `imagemagick`:
+
+```sh
+sudo apt-get install imagemagick
 ```
 
 Then clone this repo:
@@ -19,6 +25,11 @@ Then go to the repo folder and install npm dependencies:
 cd pics
 npm install
 ```
+
+### Configure RPi3
+
+Add `dtoverlay=pi3-miniuart-bt` at the end of `/boot/cmdline.txt`
+Run `misc/enable-serial.sh`.
 
 ### Configure wifi
 
@@ -119,4 +130,3 @@ ledOff.onclick = function() {
 	pics.led('1.1', false);
 }
 ```
-
