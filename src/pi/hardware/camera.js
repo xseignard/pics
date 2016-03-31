@@ -14,7 +14,7 @@ const takePicture = (tmpDir, callback) => {
 		const now = new Date();
 		const fileName = path.join(tmpDir, now.getTime() + '.jpg');
 
-		exec('raspistill -w 1296 -h 972 -o ' + fileName, (err, stdin, stdout) => {
+		exec('raspistill -w 1296 -h 972 -t 1 -n -o ' + fileName, (err, stdin, stdout) => {
 			callback(err, fileName);
 		});
 	}
