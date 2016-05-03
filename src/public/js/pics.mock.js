@@ -1,7 +1,8 @@
 (function(){
 
-	var Pics = function(host, handleWinner) {
+	var Pics = function(host, gameId, handleWinner, handleObjects) {
 		this.handleWinner = handleWinner;
+		this.gameId = gameId;
 		var _self = this;
 		this.mockResult = function(result) {
 			console.log(result);
@@ -15,6 +16,12 @@
 				_self.handleWinner(_self.result1, _self.result2);
 			}
 		};
+		setTimeout(function() {
+			handleObjects({
+				game: gameId,
+				ready: true
+			});
+		}, 3000);
 	};
 
 	Pics.prototype.start = function(hexColor, duration) {
